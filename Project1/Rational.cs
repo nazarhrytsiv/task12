@@ -6,12 +6,15 @@ namespace MathSuite.Core.Numeric
 
     public class Rational
     {
+
+
+
         #region Static fields
         private const string NAN_LITERAL = "NaN";
         #endregion
 
         //Use Hungary anotation
-        private readonly int _numerator, _denominator;
+        public readonly int _numerator, _denominator;
 
         #region Consturctors
         public Rational(int numerator) : this(numerator, 1) { }
@@ -65,6 +68,27 @@ namespace MathSuite.Core.Numeric
         public string Print()
         {
             return _numerator.ToString() + "/" + _denominator.ToString();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            var rational = obj as Rational;
+            return rational != null &&
+                   _numerator == rational._numerator &&
+                   _denominator == rational._denominator;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1796543463;
+            hashCode = hashCode * -1521134295 + _numerator.GetHashCode();
+            hashCode = hashCode * -1521134295 + _denominator.GetHashCode();
+            return hashCode;
         }
 
         public static Rational operator +(Rational first_number, Rational second_number)
