@@ -7,13 +7,11 @@ namespace MathSuite.Core.Numeric
     public class Rational
     {
 
-
-
         #region Static fields
         private const string NAN_LITERAL = "NaN";
         #endregion
 
-        //Use Hungary anotation
+        
         public readonly int _numerator, _denominator;
 
         #region Consturctors
@@ -54,33 +52,32 @@ namespace MathSuite.Core.Numeric
         {
             int answer = 1;
             int smallest = Math.Min(this._numerator, this._denominator);
-            for (int i = smallest; i >= 2; i--)
+            for (int i = smallest; i > 1; i--)
             {
                 if (this._numerator % i == 0 & _denominator % i == 0)
                 {
                     answer = i;
-                    return answer;
+                    break;
                 }
             }
             return answer;
         }
 
-        public string Print()
-        {
-            return _numerator.ToString() + "/" + _denominator.ToString();
-        }
-
         public override string ToString()
         {
-            return base.ToString();
+            return _numerator.ToString() + "/" + _denominator.ToString();
         }
 
         public override bool Equals(object obj)
         {
             var rational = obj as Rational;
-            return rational != null &&
-                   _numerator == rational._numerator &&
-                   _denominator == rational._denominator;
+            bool answer = false;
+            if( rational != null &&_numerator == rational._numerator && _denominator == rational._denominator)
+            {
+                answer = true;
+            }
+
+            return answer;
         }
 
         public override int GetHashCode()
@@ -119,12 +116,17 @@ namespace MathSuite.Core.Numeric
 
         public static Rational operator *(Rational first_number, Rational second_number)
         {
-            return new Rational(first_number._numerator * second_number._numerator, first_number._denominator * second_number._denominator);
+            var new_numerator = first_number._numerator * second_number._numerator;
+            var new_denominator = first_number._denominator * second_number._denominator;
+            return new Rational(new_numerator, new_denominator);
         }
 
         public static Rational operator /(Rational first_number, Rational second_number)
         {
-            return new Rational(first_number._numerator * second_number._denominator, first_number._denominator * second_number._numerator);
+            var new_numerator = first_number._numerator / second_number._numerator;
+            var new_denominator = first_number._denominator / second_number._denominator;
+            return new Rational(new_numerator, new_denominator);
+
         }
     }
 

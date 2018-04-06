@@ -24,7 +24,7 @@ namespace MathSuite.Core.Numeric
             {
                 result += array[i];
             }
-            Console.WriteLine(result.Print());
+            Console.WriteLine(result.ToString());
 
             result = array[0];
 
@@ -32,7 +32,7 @@ namespace MathSuite.Core.Numeric
             {
                 result *= array[i];
             }
-            Console.WriteLine(result.Print());
+            Console.WriteLine(result.ToString());
 
 
             Console.ReadKey();
